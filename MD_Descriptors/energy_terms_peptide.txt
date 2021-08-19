@@ -1,0 +1,9 @@
+Coul-SR:Peptide-Peptide
+LJ-SR:Peptide-Peptide
+Coul-14:Peptide-Peptide
+LJ-14:Peptide-Peptide
+Coul-SR:Peptide-Receptor
+LJ-SR:Peptide-Receptor
+Coul-SR:Peptide-Water
+LJ-SR:Peptide-Water
+

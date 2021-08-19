@@ -1,0 +1,4 @@
+splitch 2
+name 18 Receptor
+name 19 Peptide
+q

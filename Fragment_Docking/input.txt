@@ -1,0 +1,12 @@
+mode: grow
+pep_seq: NFDNPVYRKT
+pep_frag: PVY
+target: 1NTV_receptor
+peptide: 1NTV_pep_fragment
+num_chains: 1
+pep_ph: 7.0
+center_x: 3.748
+center_y: -10.911
+center_z: 12.457
+dist_box: 3.0
+init_box: 10
