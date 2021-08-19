@@ -6,6 +6,8 @@
 - Molecular Informatics, 2021
 - Authors: Rodrigo Ochoa, Angel Santiago, Melissa Alegría-Arcos, Lucy Jiménez
 
+Here we present a set of protocols to dock peptides using a fragment-growing docking protocol for the *de novo* prediction of peptide conformations, a routine to capture descriptors from protein-peptide MD trajectories, and a script to predict observables such as average scoring values. As an application, a granzyme B protease was docked to a library of known peptide substrates and random sequences, and each complex was subjected to short MD simulations. Then a set of descriptors was calculated to generate a regression model able to predict with enough accuracy binding observables such as average scores from AutoDock Vina. The code to run the proposed protocols is available in this repository with some examples of execution.
+
 **Third-party tools required:**
 
 These were tested under an Ubuntu 20.04 operating system. **They can be installed using Conda to generate a virtual environment with all the requirements.**
@@ -23,7 +25,7 @@ Scikit-Learn: https://scikit-learn.org/stable/
 
 The project is split into three main protocols that are part from the publication. Some generalities and examples are provided in each section.
 
-### Fragment-docking protocol
+### 1. Fragment-docking protocol
 
 This is a fragment-growing docking protocol for the *de novo* prediction of peptide conformations available in the folder `Fragment_Docking`. The protocol contain a subfolder called `scripts` with necessary software, and input files to run a basic example.
 
