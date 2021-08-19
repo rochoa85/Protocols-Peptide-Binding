@@ -1,34 +1,33 @@
-# Protocol for fragment-growing docking and MD-based scoring of peptide substrates
+# Protocols for fragment-growing docking and MD-based scoring of peptide substrates
 
 ### General Information and Third-Party Tools
 
-Fragment docking protocol to predict peptide bound conformations
-NOTE: The protocol requires of auxiliary programas and Unix system commands - Tested on Ubuntu 16.04
-
-From publication "Protocol for fragment-growing docking and MD-based scoring of peptide substrates"
-Molecular Informatics, 2021
-Authors: Rodrigo Ochoa, Angel Santiago, Melissa Alegría-Arcos, Lucy Jimenez
+- From publication "Protocol for fragment-growing docking and MD-based scoring of peptide substrates"
+- Molecular Informatics, 2021
+- Authors: Rodrigo Ochoa, Angel Santiago, Melissa Alegría-Arcos, Lucy Jiménez
 
 **Third-party tools required:**
+
+These were tested under an Ubuntu 20.04 operating system. **They can ve installed using Conda to generate a virtual environment with all the requirements.**
 
 BioPython: https://biopython.org/wiki/Download - Ubuntu package: python-biopython
 RDKit: https://github.com/rdkit/rdkit/releases - Ubuntu package: python-rdkit
 AutoDock Vina: http://vina.scripps.edu/download.html - Ubuntu package: autodock-vina
 Open Babel: https://sourceforge.net/projects/openbabel/ - Ubuntu package: openbabel
-
 Modeller: https://salilab.org/modeller/download\_installation.html
 MGL Tools: http://mgltools.scripps.edu/downloads
-PDB2PQR: https://apbs-pdb2pqr.readthedocs.io/en/latest/downloads.html - Right now there is a local version
-
+PDB2PQR: https://apbs-pdb2pqr.readthedocs.io/en/latest/downloads.html
 ParmEd: https://github.com/ParmEd/ParmEd
 MDTraj: https://www.mdtraj.org/1.9.5/index.html
 Scikit-Learn: https://scikit-learn.org/stable/
 
-NOTE: These packages can be installed with CONDA
+The project is split into three main protocols that are part from the publication. Some generalities and examples are provided in each section.
 
-### How to access the fragment-docking script
+### Fragment-docking protocol
 
-An example of the script syntax is as follows::
+This is a fragment-growing docking protocol for the *de novo* prediction of peptide conformations available in the folder `Fragment_Docking`. The protocol contain a subfolder called `scripts` with necessary software, and input files to run a basic example.
+
+The script syntax is as follows::
 
 `usage: fragment_docking.py [-h] -i CONFIG_FILE`
 
@@ -41,13 +40,7 @@ optional arguments:
                   protocol
 
  ```
-
-In addition of the script, the folder require of the target PDB structure file, a folder with a set of necessary scripts, and an output folder where the docking results step by step will be stored.
-
-```
-[target].pdb output scripts
-```
-An example to run the protocol script using the structure provided in the docker folder `/home/docking` is here:
+To run the folder require of the target PDB structure file, and an output folder where the docking results step by step will be stored. Based on the file `XXX` to run the protocol script using the structure provided in the docker folder `/home/docking` is here:
 
 `
 python fragment_docking.py -i input.txt"
