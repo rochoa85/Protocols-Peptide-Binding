@@ -8,7 +8,7 @@
 
 **Third-party tools required:**
 
-These were tested under an Ubuntu 20.04 operating system. **They can ve installed using Conda to generate a virtual environment with all the requirements.**
+These were tested under an Ubuntu 20.04 operating system. **They can be installed using Conda to generate a virtual environment with all the requirements.**
 
 BioPython: https://biopython.org/wiki/Download - Ubuntu package: python-biopython
 RDKit: https://github.com/rdkit/rdkit/releases - Ubuntu package: python-rdkit
@@ -38,7 +38,6 @@ optional arguments:
   -h, --help      show this help message and exit
   -i CONFIG_FILE  File containing all the necessary parameters to run the
                   protocol
-
  ```
 To run the folder require of the target PDB structure file, and an output folder where the docking results step by step will be stored. Based on the file `XXX` to run the protocol script using the structure provided in the docker folder `/home/docking` is here:
 
