@@ -53,9 +53,6 @@ from Bio.PDB import *
 import modeller
 from modeller.automodel import *
 
-# Personal script
-#from scripts import calculate_rmsd
-
 ########################################################################################
 # General Functions
 ########################################################################################
@@ -237,7 +234,7 @@ def generateConformer(sequence):
     writer.write(mol)
 
     # Convert to PDB file
-    os.system("babel -isdf pepM_{peptide}.sdf -opdb pepM_{peptide}.pdb".format(peptide=sequence))
+    os.system("obabel -isdf pepM_{peptide}.sdf -opdb > pepM_{peptide}.pdb".format(peptide=sequence))
     os.system("rm pepM_{}.sdf".format(sequence))
 
 ################################################################
@@ -382,8 +379,6 @@ def generate_box(sequence,center_x,center_y,center_z,pdb,ref_size_x,ref_size_y,r
     config.write("exhaustiveness={}".format(exhaustiveness))
     config.close()
 
-    #os.system("mv {} pepM{}_step{}.pdb".format(pdb,num_model,step))
-
     # Return the cubic size
     return size_x,size_y,size_z
 
@@ -458,26 +453,6 @@ def docking(receptor,peptide,sequence,stepNumber,num_model):
         # Run Autodock Vina
         print("Docking step number {} ...".format(stepNumber))
         os.system("vina --receptor {}.pdbqt --ligand {}.pdbqt --log score.log --out out{}.pdbqt --config config{}.txt --num_modes 9".format(receptor,peptide,num_model,num_model))
-
-        # Get the first model
-        #os.system("csplit out{}.pdbqt /MODEL/ {{*}}; mv xx01 model{}_step{}.pdbqt".format(num_model,num_model,stepNumber))
-        #os.system("rm xx* score.log out{}.pdbqt".format(num_model))
-
-        #os.system("csplit out{}.pdbqt /MODEL/ {{*}} -f xx{}".format(num_model,num_model))
-        #bash="ls xx{}* | wc -l | awk '{{print $1}}'".format(num_model)
-        #num_results = subprocess.check_output(['bash','-c', bash]).strip().decode("utf-8")
-        #print("Hola",num_results)
-        #rmsd_values=[]
-        #for n in range(1,int(num_results)):
-        #    os.system("mv xx{}0{} xx{}0{}.pdbqt".format(num_model,n,num_model,n))
-        #    new_coordinates("pepM1_step{}".format(stepNumber),"xx{}0{}".format(num_model,n))
-        #    rmsd=calculate_rmsd.calculate_RMSD("xx{}0{}.pdb".format(num_model,n),num_model,stepNumber)
-        #    print("####################################################",rmsd)
-        #    rmsd_values.append(rmsd)
-        #print(rmsd_values)
-
-        #os.system("csplit out{}.pdbqt /MODEL/ {{*}}; mv xx01 model{}_step{}.pdbqt".format(num_model,num_model,stepNumber))
-        #os.system("rm xx* score.log out{}.pdbqt".format(num_model))
 
 
 ################################################################
@@ -642,51 +617,6 @@ if __name__ == '__main__':
         print("The initial box threshold has not been provided. In that case the software will use a default value of 5 for the initial physical distance per dimension")
         init_threshold=5
 
-    # parser.add_argument('-s', dest='pep_seq', action='store',required=True,
-    #                     help='Sequence of peptide to be analyzed')
-    # parser.add_argument('-f', dest='pep_frag', action='store',required=True,
-    #                     help='Fragment that will be used as initial anchor')
-    # parser.add_argument('-t', dest='target', action='store',required=True,
-    #                     help='Name of the PDB structure used as target')
-    # parser.add_argument('-n', dest='num_chains', action='store',required=True,
-    #                     help='Number of chains present in the target structure')
-    # parser.add_argument('-x', dest='center_x', action='store', required=True,
-    #                     help='Coordinate in X of the box center')
-    # parser.add_argument('-y', dest='center_y', action='store', required=True,
-    #                     help='Coordinate in Y of the box center')
-    # parser.add_argument('-z', dest='center_z', action='store', required=True,
-    #                     help='Coordinate in Z of the box center')
-    # parser.add_argument('-p', dest='pep_ph', action='store', default=7.0,
-    #                     help='pH of the system')
-    # # Pending add more
-    # args = parser.parse_args()
-
-    ####################################################################################
-    # Assignment of parameters
-
-    # peptide=args.pep_frag
-    # receptor=args.target
-    # number_chains=int(args.num_chains)
-    # pH=args.pep_ph
-    #
-    # # Center of reference selected by the user
-    # center_x=args.center_x
-    # center_y=args.center_y
-    # center_z=args.center_z
-
-    ####################################################################################
-    # Example input data
-    ####################################################################################
-    # ref_peptide="ENPVVHFFKNIVTPR"
-    # peptide="FFK"
-    # receptor="1BX2-ABP"
-    # number_chains=2
-    # pH=5.3
-    # # Center of reference selected by the user
-    # center_x=-7.1
-    # center_y=24.5
-    # center_z=-2.416
-
     ####################################################################################
     # Start functions
     ####################################################################################
@@ -781,23 +711,19 @@ if __name__ == '__main__':
         pool.close()
         pool.join()
 
+        # Check the pose with the RMSD closer to the preivous fragment from the top 10
         for num in range(1,4):
             os.system("csplit out{}.pdbqt /MODEL/ {{*}} -f xx{}".format(num,num))
             bash="ls xx{}* | wc -l | awk '{{print $1}}'".format(num)
             num_results = subprocess.check_output(['bash','-c', bash]).strip().decode("utf-8")
-            print("Hola",num_results)
             rmsd_values=[]
             for n in range(1,int(num_results)):
                 os.system("mv xx{}0{} xx{}0{}.pdbqt".format(num,n,num,n))
                 new_coordinates("pepM1_step{}".format(i+1),"xx{}0{}".format(num,n))
-                #rmsd=calculate_rmsd.calculate_RMSD("xx{}0{}.pdb".format(num,n),num,i+1)
-
                 os.system("gmx rms -s output/step{}/model{}_step{}.pdb -f xx{}0{}.pdb -fit none -o output.xvg < rmsd_inp.txt".format(i,num,i,num,n))
                 bash="tail -n 1 output.xvg | awk '{print $2}'"
                 rmsd = subprocess.check_output(['bash','-c', bash]).strip().decode("utf-8")
                 os.system("rm output.xvg")
-
-                #print("####################################################",rmsd)
                 rmsd_values.append(float(rmsd))
             print(rmsd_values)
             ind_min=rmsd_values.index(min(rmsd_values))+1
@@ -811,13 +737,6 @@ if __name__ == '__main__':
                print("Docking error ... exiting the protocol")
                exit()
 
-
-    #
-    #     # Check if no models were produced to exit
-    #     if num_models==0:
-    #        print("Docking error ... exiting the protocol")
-    #        exit()
-    #
         # Update the coordinates and save the results
         new_coordinates("pepM1_step{}".format(i+1),"model1_step{}".format(i+1))
         new_coordinates("pepM2_step{}".format(i+1),"model2_step{}".format(i+1))
@@ -825,8 +744,6 @@ if __name__ == '__main__':
 
         os.system("mkdir output/step{num_step}; mv pepM1_step{num_step}.* pepM2_step{num_step}.* pepM3_step{num_step}.* *_step{num_step}.pdb *_step{num_step}.pdbqt *_step{num_step}.pqr config*.txt output/step{num_step}".format(num_step=str(i+1)))
         final_step=i+1
-
-        #if i==0: break
 
     # Save the final complexes
     for num in range(1,4):

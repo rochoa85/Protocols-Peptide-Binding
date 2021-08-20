@@ -25,7 +25,7 @@ Scikit-Learn: https://scikit-learn.org/stable/
 
 The project is split into three main protocols that are part from the publication. Some generalities and examples are provided in each section.
 
-### 1. Fragment-docking protocol
+## 1. Fragment-docking protocol
 
 This is a fragment-growing docking protocol for the *de novo* prediction of peptide conformations available in the folder `Fragment_Docking`. The protocol contain a subfolder called `scripts` with necessary software, and input files to run a basic example.
 
@@ -41,18 +41,36 @@ optional arguments:
   -i CONFIG_FILE  File containing all the necessary parameters to run the
                   protocol
  ```
-To run the folder require of the target PDB structure file, and an output folder where the docking results step by step will be stored. Based on the file `XXX` to run the protocol script using the structure provided in the docker folder `/home/docking` is here:
+To run the script, we require a target PDB structure file, and an output folder where the docking results step by step will be stored. Based on the file `receptor.pdb`, and input file is provided to run the protocol:
 
-`
-python fragment_docking.py -i input.txt"
-`
+```
+pep_seq: TKSPYQEF
+pep_frag: PYQ
+target: receptor
+num_chains: 1
+pep_ph: 7.0
+center_x: 18.139
+center_y: 32.759
+center_z: 73.242
+dist_box: 2.5
+init_box: 5
+```
 
-The method will start the modelling of the initial script, and the docking of the fragment after each growing step, until the peptide obtain the final desired size. The code can be modified to modifiy box sizes, as well as verify if the conformation of the growing ligand is according to previous findings of the biological system. An example of the output docked result, and the configuration each docking step is available in the output\_1NTV folder as follows:
+Where XXX
 
-`final_complex1_NFDNPVYRKT.pdb final_complex2_NFDNPVYRKT.pdb final_complex3_NFDNPVYRKT.pdb step0  step1  step2	step3  step4`
+Then the script can be called as `python fragment_docking.py -i input.txt`
 
+The method will start the modelling of the initial script, and the docking of the fragment after each growing step, until the peptide obtain the final desired size. The code can be modified to modify box sizes, as well as verify if the conformation of the growing ligand is according to previous findings of the biological system. An example of the output docked result is provided in the `example_output` folder.
 
-XXXXXXXXXXXXXX
+## 2. MD-based and peptide descriptors
 
-10 nanoseconds
+PENDING
 `bash extract_descriptors.sh LGPDESKQ 10000`
+
+## 3. Machine learning analysis
+
+PENDING
+
+## Support
+
+In case the protocol is useful for other research projects and require some advice, please contact us to the email: rodrigo.ochoa@udea.edu.co
