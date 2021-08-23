@@ -12,16 +12,16 @@ Here we present a set of protocols to dock peptides using a fragment-growing doc
 
 These were tested under an Ubuntu 20.04 operating system. **They can be installed using Conda to generate a virtual environment with all the requirements.**
 
-BioPython: https://biopython.org/wiki/Download - Ubuntu package: python-biopython
-RDKit: https://github.com/rdkit/rdkit/releases - Ubuntu package: python-rdkit
-AutoDock Vina: http://vina.scripps.edu/download.html - Ubuntu package: autodock-vina
-Open Babel: https://sourceforge.net/projects/openbabel/ - Ubuntu package: openbabel
-Modeller: https://salilab.org/modeller/download\_installation.html
-MGL Tools: http://mgltools.scripps.edu/downloads
-PDB2PQR: https://apbs-pdb2pqr.readthedocs.io/en/latest/downloads.html
-ParmEd: https://github.com/ParmEd/ParmEd
-MDTraj: https://www.mdtraj.org/1.9.5/index.html
-Scikit-Learn: https://scikit-learn.org/stable/
+- BioPython: https://biopython.org/wiki/Download - Ubuntu package: python-biopython
+- RDKit: https://github.com/rdkit/rdkit/releases - Ubuntu package: python-rdkit
+- AutoDock Vina: http://vina.scripps.edu/download.html - Ubuntu package: autodock-vina
+- Open Babel: https://sourceforge.net/projects/openbabel/ - Ubuntu package: openbabel
+- Modeller: https://salilab.org/modeller/download\_installation.html
+- MGL Tools: http://mgltools.scripps.edu/downloads
+- PDB2PQR: https://apbs-pdb2pqr.readthedocs.io/en/latest/downloads.html
+- ParmEd: https://github.com/ParmEd/ParmEd
+- MDTraj: https://www.mdtraj.org/1.9.5/index.html
+- Scikit-Learn: https://scikit-learn.org/stable/
 
 The project is split into three main protocols that are part from the publication. Some generalities and examples are provided in each section.
 
