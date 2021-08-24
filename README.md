@@ -56,11 +56,9 @@ dist_box: 2.5
 init_box: 5
 ```
 
-Where XXX
+Where **pep_seq** is the peptide sequence that will be docked, **pep_frag** is the middle fragment the peptide will grow, **target** is the name of the PDB file with the protein target, **num_chains** is the number of chain of the protein, **pep_ph** is the desired pH to protonate the molecules, **center_[x,y,z]** are the box coordinates to start the docking, **dist_box** is the distance from the extreme atoms to generate the box and **init_box** is the minimum distance per dimension to generate the box. With that, the script can be called as `python fragment_docking.py -i input.txt`
 
-Then the script can be called as `python fragment_docking.py -i input.txt`
-
-The method will start the modelling of the initial script, and the docking of the fragment after each growing step, until the peptide obtain the final desired size. The code can be modified to modify box sizes, as well as verify if the conformation of the growing ligand is according to previous findings of the biological system. An example of the output docked result is provided in the `example_output` folder.
+The method will start the modelling and docking of the initial fragment, which grows by adding one amino acid at each flanking after a new step, until the peptide obtain the final desired size. The code can be modified to update box sizes, as well as verify if the conformation of the growing ligand is according to previous findings of the biological system.
 
 ## 2. MD-based and peptide descriptors
 
