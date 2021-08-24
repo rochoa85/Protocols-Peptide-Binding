@@ -64,8 +64,15 @@ The method will start the modelling and docking of the initial fragment, which g
 
 ## 2. MD-based and peptide descriptors
 
-PENDING
-`bash extract_descriptors.sh LGPDESKQ 10000`
+Based on MD simulations of protein-peptide complexes with the Gromacs package, it is possible to extract a set of descriptors derived from the trajectories, as well as features from the peptide based on physico-chemical properties.
+
+XXX ADD TYPE OF DESCRIPTORS XXX
+
+The command to run the script is: `bash extract_descriptors.sh LGPDESKQ 10000`
+
+In this scenario, it is required to have in the same folder the MD files with extensions **xtc, tpr and gro** obtained from the protein-peptide simulations, naming each file with the peptide sequence. Examples of these input files are located in the folder `example_MD_files`.
+
+XXX ADD OUTPUT XXX
 
 ## 3. Machine learning analysis
 
