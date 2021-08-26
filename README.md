@@ -2,7 +2,7 @@
 
 ### General Information and Third-Party Tools
 
-- From publication "Protocol for fragment-growing docking and MD-based scoring of peptide substrates"
+- From publication "Protocols for fragment-growing docking and MD-based scoring of peptide substrates"
 - Molecular Informatics, 2021
 - Authors: Rodrigo Ochoa, Angel Santiago, Melissa Alegría-Arcos, Lucy Jiménez
 
@@ -66,13 +66,13 @@ The method will start the modelling and docking of the initial fragment, which g
 
 Based on MD simulations of protein-peptide complexes with the Gromacs package, it is possible to extract a set of descriptors derived from the trajectories, as well as features from the peptide based on physico-chemical properties.
 
-XXX ADD TYPE OF DESCRIPTORS XXX
+The MDFP tools libraries are implemented to extract a set of descriptors from the MD trajectories(https://github.com/rinikerlab/mdfptools/). Each descriptor is split into 3 positions on the vector, which include the average, median and standard deviation value of the calculated property among the MD frames. To achieve this, the calculated trajectory is rerun with Gromacs to add new energy terms in the outputs per frame. After that, multiple descriptors are captured. These include the Coulomb and Lennard-Jones energy contributions between the peptide, the receptor and the water molecules. Other properties are the SASA and radius of gyration, the charges calculated with the ParmED module, the dipole moments and evolution of hydrogen bonds with the MDtraj module, and bioinformatics properties of the peptide using the PepFun package. A total of 70 descriptors per complex are calculated. 
 
 The command to run the script is: `bash extract_descriptors.sh LGPDESKQ 10000`
 
-In this scenario, it is required to have in the same folder the MD files with extensions **xtc, tpr and gro** obtained from the protein-peptide simulations, naming each file with the peptide sequence. Examples of these input files are located in the folder `example_MD_files`.
+In this scenario, it is required to have in the same folder the MD files with extensions **xtc, tpr and gro** obtained from the protein-peptide simulations, naming each file with the peptide sequence. Examples of these input files are located in the folder `example_MD_files` to reproduce the pipeline.
 
-XXX ADD OUTPUT XXX
+After running the scripts per protein-peptide complex, a vector is stored as a pickled object, which can be read later by machine learning models (see next section).
 
 ## 3. Machine learning analysis
 
