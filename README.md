@@ -16,7 +16,7 @@ These were tested under an Ubuntu 20.04 operating system. **They can be installe
 - RDKit: https://github.com/rdkit/rdkit/releases - Ubuntu package: python-rdkit
 - AutoDock Vina: http://vina.scripps.edu/download.html - Ubuntu package: autodock-vina
 - Open Babel: https://sourceforge.net/projects/openbabel/ - Ubuntu package: openbabel
-- Modeller: https://salilab.org/modeller/download\_installation.html
+- Modeller: https://salilab.org/modeller/download_installation.html
 - MGL Tools: http://mgltools.scripps.edu/downloads
 - PDB2PQR: https://apbs-pdb2pqr.readthedocs.io/en/latest/downloads.html
 - ParmEd: https://github.com/ParmEd/ParmEd
@@ -56,7 +56,7 @@ dist_box: 2.5
 init_box: 5
 ```
 
-Where **pep_seq** is the peptide sequence that will be docked, **pep_frag** is the middle fragment the peptide will grow, **target** is the name of the PDB file with the protein target, **num_chains** is the number of chain of the protein, **pep_ph** is the desired pH to protonate the molecules, **center_[x,y,z]** are the box coordinates to start the docking, **dist_box** is the distance from the extreme atoms to generate the box and **init_box** is the minimum distance per dimension to generate the box. 
+Where **pep_seq** is the peptide sequence that will be docked, **pep_frag** is the middle fragment the peptide will grow, **target** is the name of the PDB file with the protein target, **num_chains** is the number of chain of the protein, **pep_ph** is the desired pH to protonate the molecules, **center_[x,y,z]** are the box coordinates to start the docking, **dist_box** is the distance from the extreme atoms to generate the box and **init_box** is the minimum distance per dimension to generate the box.
 
 With that input file, the script can be called as `python fragment_docking.py -i input.txt`
 
@@ -66,7 +66,7 @@ The method will start the modelling and docking of the initial fragment, which g
 
 Based on MD simulations of protein-peptide complexes with the Gromacs package, it is possible to extract a set of descriptors derived from the trajectories, as well as features from the peptide based on physico-chemical properties.
 
-The MDFP tools libraries are implemented to extract a set of descriptors from the MD trajectories(https://github.com/rinikerlab/mdfptools/). Each descriptor is split into 3 positions on the vector, which include the average, median and standard deviation value of the calculated property among the MD frames. To achieve this, the calculated trajectory is rerun with Gromacs to add new energy terms in the outputs per frame. After that, multiple descriptors are captured. These include the Coulomb and Lennard-Jones energy contributions between the peptide, the receptor and the water molecules. Other properties are the SASA and radius of gyration, the charges calculated with the ParmED module, the dipole moments and evolution of hydrogen bonds with the MDtraj module, and bioinformatics properties of the peptide using the PepFun package. A total of 70 descriptors per complex are calculated. 
+The MDFP tools libraries are implemented to extract a set of descriptors from the MD trajectories(https://github.com/rinikerlab/mdfptools/). Each descriptor is split into 3 positions on the vector, which include the average, median and standard deviation value of the calculated property among the MD frames. To achieve this, the calculated trajectory is rerun with Gromacs to add new energy terms in the outputs per frame. After that, multiple descriptors are captured. These include the Coulomb and Lennard-Jones energy contributions between the peptide, the receptor and the water molecules. Other properties are the SASA and radius of gyration, the charges calculated with the ParmED module, the dipole moments and evolution of hydrogen bonds with the MDtraj module, and bioinformatics properties of the peptide using the PepFun package. A total of 70 descriptors per complex are calculated.
 
 The command to run the script is: `bash extract_descriptors.sh LGPDESKQ 10000`
 
@@ -76,7 +76,15 @@ After running the scripts per protein-peptide complex, a vector is stored as a p
 
 ## 3. Machine learning analysis
 
-PENDING
+Previous to run the ML model, it is required to obtain a response variable to train the model. In our example, an average docking score obtained from the MD frames was calculated per protein-peptide complex. The score used is the one from AutoDock Vina (*Vina*), but it can be energies predicted from more exhaustive simulations such as MM/PBSA and MM/GBSA calculations.
+
+With the descriptors and defined response, a script is provided to train and run a regression model using two methods: a gradient booster regressor and a linear regression model. For both cases, the vectors are available in the `dict_objects` folder through **pickled** files obtained from the previous protocol. The script also requires a `total_peptides.txt` file with all the sequences, and a `scores_vina_total.txt` with the response variable, in this case the average *Vina* scores calculated from the MD simulations. **The paths and file names can be modified directly in the script.**
+
+The command to run the script is: `python prediction_scores.py`
+
+Two plots are generated, one with the gradient booster deviance of both the training and test sets, and a second plot with the feature and permutation importance. In addition, the R2 and MSE (Mean Square Errors) metrics are provided to assess the quality of the models.
+
+**NOTE: All the three protocols can be combined to generate a pipeline of docking, sampling and scoring of peptide substrates for a protein target of interest.**
 
 ## Support
 
