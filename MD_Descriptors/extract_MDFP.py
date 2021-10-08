@@ -4,9 +4,9 @@
 Extract MD and peptide descriptors with MDFP and PepFun packages
 NOTE: The protocol requires of auxiliary programas and Unix system commands - Tested on Ubuntu 16.04
 
-From publication "Protocol for fragment-growing docking and MD-based scoring of peptide substrates"
+From publication "Protocols for fragment-growing docking and MD-based scoring of peptide substrates"
 Molecular Informatics, 2021
-Authors: Rodrigo Ochoa, Angel Santiago, Melissa Alegría-Arcos, Lucy Jimenez
+Authors: Rodrigo Ochoa, Angel Santiago, Melissa Alegría-Arcos
 
 - For the MDFP functions, please refer to the publication:
 Esposito, C., Wang, S., Lange, U. E., Oellien, F., & Riniker, S. (2020).

@@ -4,7 +4,7 @@
 
 - From publication "Protocols for fragment-growing docking and MD-based scoring of peptide substrates"
 - Molecular Informatics, 2021
-- Authors: Rodrigo Ochoa, Angel Santiago, Melissa Alegría-Arcos, Lucy Jiménez
+- Authors: Rodrigo Ochoa, Angel Santiago, Melissa Alegría-Arcos
 
 Here we present a set of protocols to dock peptides using a fragment-growing docking protocol for the *de novo* prediction of peptide conformations, a routine to capture descriptors from protein-peptide MD trajectories, and a script to predict observables such as average scoring values. As an application, a granzyme B protease was docked to a library of known peptide substrates and random sequences, and each complex was subjected to short MD simulations. Then a set of descriptors was calculated to generate a regression model able to predict with enough accuracy binding observables such as average scores from AutoDock Vina. The code to run the proposed protocols is available in this repository with some examples of execution.
 
@@ -27,7 +27,7 @@ The project is split into three main protocols that are part from the publicatio
 
 ## 1. Fragment-docking protocol
 
-This is a fragment-growing docking protocol for the *de novo* prediction of peptide conformations available in the folder `Fragment_Docking`. The protocol contain a subfolder called `scripts` with necessary software, and input files to run a basic example.
+This is a fragment-growing docking protocol for the *de novo* prediction of peptide conformations available in the folder `Fragment_Docking`. The protocol contain a subfolder called `scripts` with the necessary software, and input files to run a basic example.
 
 The script syntax is as follows::
 
@@ -41,7 +41,7 @@ optional arguments:
   -i CONFIG_FILE  File containing all the necessary parameters to run the
                   protocol
  ```
-To run the script, we require a target PDB structure file, and an output folder where the docking results step by step will be stored. Based on the file `receptor.pdb`, and input file is provided to run the protocol:
+To run the script, we require a target PDB structure file, and an output folder where the docking results step by step will be stored. Based on the file `receptor.pdb`, an input file is provided to run the protocol:
 
 ```
 pep_seq: TKSPYQEF
@@ -66,9 +66,9 @@ The method will start the modelling and docking of the initial fragment, which g
 
 Based on MD simulations of protein-peptide complexes with the Gromacs package, it is possible to extract a set of descriptors derived from the trajectories, as well as features from the peptide based on physico-chemical properties.
 
-The MDFP tools libraries are implemented to extract a set of descriptors from the MD trajectories(https://github.com/rinikerlab/mdfptools/). Each descriptor is split into 3 positions on the vector, which include the average, median and standard deviation value of the calculated property among the MD frames. To achieve this, the calculated trajectory is rerun with Gromacs to add new energy terms in the outputs per frame. After that, multiple descriptors are captured. These include the Coulomb and Lennard-Jones energy contributions between the peptide, the receptor and the water molecules. Other properties are the SASA and radius of gyration, the charges calculated with the ParmED module, the dipole moments and evolution of hydrogen bonds with the MDtraj module, and bioinformatics properties of the peptide using the PepFun package. A total of 70 descriptors per complex are calculated.
+The MDFP tools libraries are implemented to extract a set of descriptors from the MD trajectories (https://github.com/rinikerlab/mdfptools/). Each descriptor is split into 3 positions on the vector, which include the average, median and standard deviation value of the calculated property among the MD frames. To achieve this, the calculated trajectory is rerun with Gromacs to add new energy terms in the outputs per frame. After that, multiple descriptors are captured. These include the Coulomb and Lennard-Jones energy contributions between the peptide, the receptor and the water molecules. Other properties are the SASA and radius of gyration, the charges calculated with the ParmED module, the dipole moments and evolution of hydrogen bonds with the MDtraj module, and bioinformatics properties of the peptide using the PepFun package. A total of 70 descriptors per complex are calculated.
 
-The command to run the script is: `bash extract_descriptors.sh LGPDESKQ 10000`
+The command to run the script is: `bash extract_descriptors.sh LGPDESKQ 10000`, where `10000` is the time of the MD simulation **(10 ns for this case).**
 
 In this scenario, it is required to have in the same folder the MD files with extensions **xtc, tpr and gro** obtained from the protein-peptide simulations, naming each file with the peptide sequence. Examples of these input files are located in the folder `example_MD_files` to reproduce the pipeline.
 
@@ -78,11 +78,11 @@ After running the scripts per protein-peptide complex, a vector is stored as a p
 
 Previous to run the ML model, it is required to obtain a response variable to train the model. In our example, an average docking score obtained from the MD frames was calculated per protein-peptide complex. The score used is the one from AutoDock Vina (*Vina*), but it can be energies predicted from more exhaustive simulations such as MM/PBSA and MM/GBSA calculations.
 
-With the descriptors and defined response, a script is provided to train and run a regression model using two methods: a gradient booster regressor and a linear regression model. For both cases, the vectors are available in the `dict_objects` folder through **pickled** files obtained from the previous protocol. The script also requires a `total_peptides.txt` file with all the sequences, and a `scores_vina_total.txt` with the response variable, in this case the average *Vina* scores calculated from the MD simulations. **The paths and file names can be modified directly in the script.**
+With the descriptors and defined response, a script is provided to train and run a regression model using two methods: a gradient boosting regressor and a linear regression model. For both cases, the vectors are available in the `dict_objects` folder through **pickled** files obtained from the previous protocol. The script also requires a `total_peptides.txt` file with all the sequences, and a `scores_vina_total.txt` with the response variable, in this case the average *Vina* scores calculated from the MD simulations. **The paths and file names can be modified directly in the script.**
 
 The command to run the script is: `python prediction_scores.py`
 
-Two plots are generated, one with the gradient booster deviance of both the training and test sets, and a second plot with the feature and permutation importance. In addition, the R2 and MSE (Mean Square Errors) metrics are provided to assess the quality of the models.
+Two plots are generated, one with the gradient boosting deviance of both the training and test sets, and a second plot with the feature and permutation importance. In addition, the R2 and MSE (Mean Square Errors) metrics are provided to assess the quality of the models.
 
 **NOTE: All the three protocols can be combined to generate a pipeline of docking, sampling and scoring of peptide substrates for a protein target of interest.**
 
