@@ -3,10 +3,10 @@
 ### General Information and Third-Party Tools
 
 - From publication "Protocols for fragment-growing docking and MD-based scoring of peptide substrates"
-- Molecular Informatics, 2021
+- Artificial Intelligence in the Life Sciences, 2022
 - Authors: Rodrigo Ochoa, Angel Santiago, Melissa Alegría-Arcos
 
-Here we present a set of protocols to dock peptides using a fragment-growing docking protocol for the *de novo* prediction of peptide conformations, a routine to capture descriptors from protein-peptide MD trajectories, and a script to predict observables such as average scoring values. As an application, a granzyme B protease was docked to a library of known peptide substrates and random sequences, and each complex was subjected to short MD simulations. Then a set of descriptors was calculated to generate a regression model able to predict with enough accuracy binding observables such as average scores from AutoDock Vina. The code to run the proposed protocols is available in this repository with some examples of execution.
+Here we present a set of protocols to dock peptides using a fragment-growing docking protocol for the prediction of peptide conformations, a routine to capture descriptors from protein-peptide MD trajectories, and a script to predict observables such as average scoring values. As an application, a granzyme B protease was docked to a library of known peptide substrates and random sequences, and each complex was subjected to short MD simulations. Then a set of descriptors was calculated to generate a regression model able to predict with enough accuracy binding observables such as average scores from AutoDock Vina. The code to run the proposed protocols is available in this repository with some examples of execution.
 
 **Third-party tools required:**
 
@@ -27,7 +27,7 @@ The project is split into three main protocols that are part from the publicatio
 
 ## 1. Fragment-docking protocol
 
-This is a fragment-growing docking protocol for the *de novo* prediction of peptide conformations available in the folder `Fragment_Docking`. The protocol contain a subfolder called `scripts` with the necessary software, and input files to run a basic example.
+This is a fragment-growing docking protocol for the prediction of peptide conformations available in the folder `Fragment_Docking`. The protocol contain a subfolder called `scripts` with the necessary software, and input files to run a basic example.
 
 The script syntax is as follows::
 

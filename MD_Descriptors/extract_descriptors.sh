@@ -4,7 +4,7 @@
 # NOTE: The protocol requires of auxiliary programas and Unix system commands - Tested on Ubuntu 16.04
 
 # From publication "Protocols for fragment-growing docking and MD-based scoring of peptide substrates"
-# Molecular Informatics, 2021
+# Artifical Intelligence in the Life Sciences, 2022
 # Authors: Rodrigo Ochoa, Angel Santiago, Melissa Alegría-Arcos
 #
 # Third-party tools required:
