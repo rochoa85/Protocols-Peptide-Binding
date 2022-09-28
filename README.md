@@ -2,7 +2,7 @@
 
 ### General Information and Third-Party Tools
 
-- From publication "Protocols for fragment-growing docking and MD-based scoring of peptide substrates"
+- From publication "Open protocols for docking and MD-based scoring of peptide substrates"
 - Artificial Intelligence in the Life Sciences, 2022
 - Authors: Rodrigo Ochoa, Angel Santiago, Melissa Alegría-Arcos
 
