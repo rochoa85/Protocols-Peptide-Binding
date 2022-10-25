@@ -18,6 +18,7 @@ These were tested under an Ubuntu 20.04 operating system. **They can be installe
 - Open Babel: https://sourceforge.net/projects/openbabel/ - Ubuntu package: openbabel
 - Modeller: https://salilab.org/modeller/download_installation.html
 - MGL Tools: http://mgltools.scripps.edu/downloads
+- Gromacs: https://www.gromacs.org/
 - PDB2PQR: https://apbs-pdb2pqr.readthedocs.io/en/latest/downloads.html
 - ParmEd: https://github.com/ParmEd/ParmEd
 - MDTraj: https://www.mdtraj.org/1.9.5/index.html
